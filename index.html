@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP4转MP3工具</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 2rem;
+            padding: 0 1rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: white;
+            margin-bottom: 2rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(74, 107, 255, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5bef;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-1px);
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+            background-color: var(--secondary-color);
+            margin: 1.5rem 0;
+        }
+
+        .progress-bar {
+            background-color: var(--primary-color);
+        }
+
+        .method-selector {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+        }
+
+        .form-check {
+            margin-bottom: 0.5rem;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        #result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 1rem;
+                padding: 0 0.5rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 0.75rem;
+            background-color: var(--secondary-color);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-label:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(74, 107, 255, 0.05);
+        }
+
+        .file-input-label i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-file-audio me-2"></i>MP4转MP3工具</h1>
+        <div class="card">
+            <div class="card-body">
+                <form id="conversionForm">
+                    <div class="mb-4">
+                        <label for="videoFile" class="form-label">选择MP4文件</label>
+                        <div class="file-input-wrapper">
+                            <label class="file-input-label" for="videoFile">
+                                <i class="fas fa-upload"></i>
+                                <span id="fileName">点击或拖拽文件到此处</span>
+                            </label>
+                            <input type="file" class="form-control" id="videoFile" accept=".mp4" required>
+                        </div>
+                    </div>
+                    
+                    <div class="method-selector">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="manualMethod" value="manual" checked>
+                            <label class="form-check-label" for="manualMethod">
+                                <i class="fas fa-clock me-2"></i>手动设置时间
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="aiMethod" value="ai">
+                            <label class="form-check-label" for="aiMethod">
+                                <i class="fas fa-robot me-2"></i>智能剪辑（使用AI）
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="manualControls">
+                        <div class="mb-4">
+                            <label class="form-label">选择时间范围</label>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-play"></i></span>
+                                        <input type="number" class="form-control" id="startTime" placeholder="开始时间（秒）" min="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-stop"></i></span>
+                                        <input type="number" class="form-control" id="endTime" placeholder="结束时间（秒）" min="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="aiControls" style="display: none;">
+                        <div class="mb-4">
+                            <label for="prompt" class="form-label">输入剪辑要求</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-comment"></i></span>
+                                <textarea class="form-control" id="prompt" rows="3" placeholder="例如：帮我去掉开头十秒和结尾3秒"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-exchange-alt me-2"></i>开始转换
+                    </button>
+                </form>
+                <div class="progress mt-3">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                </div>
+                <div id="result" class="mt-3 text-center" style="display: none;">
+                    <a id="downloadLink" href="#" class="btn btn-success">
+                        <i class="fas fa-download me-2"></i>下载MP3文件
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

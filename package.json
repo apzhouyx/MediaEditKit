@@ -1,0 +1,16 @@
+{
+  "name": "mp4-to-mp3-converter",
+  "version": "1.0.0",
+  "description": "MP4转MP3网页应用",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "multer": "^1.4.2"
+  }
+}
