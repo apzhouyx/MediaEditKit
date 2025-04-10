@@ -1,69 +1,86 @@
 # MP4转MP3工具
 
-一个简单易用的网页应用，可以将MP4视频转换为MP3音频，支持智能剪辑功能。
+一个简单易用的MP4转MP3工具，支持手动剪辑和AI智能剪辑功能。
+
+![项目界面](images/interface.png)
 
 ## 功能特点
 
-- 支持MP4文件上传
-- 支持手动设置剪辑时间
-- 支持AI智能剪辑（使用自然语言描述）
-- 响应式设计，支持移动设备
-- 文件拖放上传
-- 实时进度显示
+- 🎥 **MP4文件上传**：支持拖拽上传和文件选择器上传
+- ✂️ **手动剪辑**：精确控制音频片段
+- 🤖 **AI智能剪辑**：自动识别并提取音频片段
+- 📱 **响应式设计**：适配各种设备屏幕
+- ⚡ **实时进度显示**：清晰展示转换进度
+
 
 ## 技术栈
 
-- 前端：HTML5, CSS3, JavaScript, Bootstrap 5
-- 后端：Node.js, Express
-- 视频处理：FFmpeg
-- AI接口：DeepSeek API
+### 前端
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- Bootstrap 5
+
+### 后端
+- Node.js
+- Express.js
+
+### 视频处理
+- FFmpeg
+
+### AI接口
+- DeepSeek API
 
 ## 安装说明
 
-1. 克隆项目：
+1. 克隆仓库
 ```bash
-git clone https://github.com/你的用户名/mp4-to-mp3-converter.git
-cd mp4-to-mp3-converter
+git clone https://github.com/Zhouyx26/MediaEditKit.git
+cd MediaEditKit
 ```
 
-2. 安装依赖：
+2. 安装依赖
 ```bash
 npm install
 ```
 
-3. 安装FFmpeg：
-- Windows: 从[FFmpeg官网](https://ffmpeg.org/download.html)下载并添加到系统环境变量
-- Mac: `brew install ffmpeg`
-- Linux: `sudo apt-get install ffmpeg`
+3. 安装FFmpeg
+- Windows: 下载并安装 [FFmpeg](https://ffmpeg.org/download.html)
+- 将FFmpeg添加到系统环境变量
 
-4. 配置环境变量：
-创建`.env`文件并添加：
-```
-DEEPSEEK_API_KEY=你的DeepSeek_API密钥
-```
-
-5. 启动服务器：
+4. 配置环境变量
 ```bash
-npm start
+# 创建.env文件
+touch .env
+# 添加以下内容
+OPENAI_API_KEY=your_api_key_here
 ```
 
-6. 访问应用：
+5. 启动服务器
+```bash
+node server.js
+```
+
+6. 访问应用
 打开浏览器访问 `http://localhost:3000`
 
 ## 使用说明
 
 1. 上传MP4文件
-2. 选择剪辑方式：
-   - 手动设置：输入开始和结束时间
-   - AI智能：输入自然语言描述（如"去掉开头10秒和结尾3秒"）
-3. 点击"开始转换"
-4. 转换完成后下载MP3文件
+   - 拖拽文件到上传区域
+   - 或点击选择文件按钮
+
+2. 选择剪辑方式
+   - 手动剪辑：拖动滑块选择片段
+   - AI智能剪辑：输入提示词，AI自动识别
+
+
 
 ## 注意事项
 
 - 确保已正确安装FFmpeg
-- 确保有足够的磁盘空间用于临时文件
-- 大文件转换可能需要较长时间
+- 文件大小限制：最大100MB
+- 建议使用Chrome或Firefox浏览器
 
 ## 许可证
 
