@@ -2,7 +2,9 @@
 
 一个简单易用的MP4转MP3工具，支持手动剪辑和AI智能剪辑功能。
 
-![项目界面](images/interface.png)
+<img src="images/interface.png" width="470px">
+
+
 
 ## 功能特点
 
